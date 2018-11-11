@@ -9,6 +9,12 @@ const mandals = [
   { id: '3', title: 'car', date: '2018-11-11' }
 ]
 
+interface MandalResolveArgs {
+  id?: string,
+  title?: string,
+  date?: string
+}
+
 const MandalType = new GraphQLObjectType({
   name: 'Mandal',
   fields: () => ({
@@ -24,7 +30,7 @@ const RootQuery = new GraphQLObjectType({
     mandal: {
       type: MandalType,
       args: { id: { type: GraphQLString } },
-      resolve (parent, args) {
+      resolve (parent: any, args: MandalResolveArgs) {
         return _.find(mandals, { id: args.id })
       }
     }
