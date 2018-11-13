@@ -1,8 +1,22 @@
 import * as express from 'express'
 import * as graphqlHTTP from 'express-graphql'
 import schema from './schema/schema'
+import * as mongoose from 'mongoose'
 
 const app = express()
+const db = mongoose.connection
+
+db.on('error', console.error)
+db.once('open', () => {
+  console.log('Connected to mongod server')
+})
+mongoose.connect('mongodb://localhost/mandalart')
+  .then(() => {
+    console.log('successfully connected to mongo')
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 app.use('/graphql', graphqlHTTP({
   schema,
