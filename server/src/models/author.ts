@@ -6,4 +6,4 @@ const authorSchema = new Schema({
   name: String
 })
 
-export default mongoose.model('Mandal', authorSchema)
+export default mongoose.model('authors', authorSchema)

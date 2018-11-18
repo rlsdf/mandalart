@@ -1,5 +1,7 @@
 import * as express from 'express'
 import * as graphqlHTTP from 'express-graphql'
+import { ApolloServer } from 'apollo-server-express'
+import * as bodyParser from 'body-parser'
 import schema from './schema/schema'
 import * as mongoose from 'mongoose'
 
@@ -17,6 +19,14 @@ mongoose.connect('mongodb://localhost/mandalart')
   .catch((err) => {
     console.log(err)
   })
+
+const server = new ApolloServer({
+  schema,
+  tracing: true,
+  cacheControl: true,
+  engine: false
+})
+server.applyMiddleware({ app })
 
 app.use('/graphql', graphqlHTTP({
   schema,

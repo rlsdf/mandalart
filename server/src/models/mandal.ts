@@ -8,4 +8,4 @@ const mandalSchema = new Schema({
   authorId: String
 })
 
-export default mongoose.model('Mandal', mandalSchema)
+export default mongoose.model('mandals', mandalSchema)
