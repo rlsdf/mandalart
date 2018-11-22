@@ -1,3 +1,3 @@
 # mandalart
 
-🏵react, typescript, mongodb, nodejs, graphql
+🏵 react, typescript, mongodb, nodejs, graphql
