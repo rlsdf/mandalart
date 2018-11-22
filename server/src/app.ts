@@ -2,28 +2,20 @@ import * as express from 'express'
 import * as graphqlHTTP from 'express-graphql'
 import { ApolloServer } from 'apollo-server-express'
 import * as bodyParser from 'body-parser'
+import echo from './routes/echo'
 import schema from './schema/schema'
-import * as mongoose from 'mongoose'
+import connectMongoose from './mongodb'
 
 const app = express()
-const db = mongoose.connection
-
-db.on('error', console.error)
-db.once('open', () => {
-  console.log('Connected to mongod server')
-})
-mongoose.connect('mongodb://localhost/mandalart')
-  .then(() => {
-    console.log('successfully connected to mongo')
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+connectMongoose()
 
 const server = new ApolloServer({
   schema,
   tracing: true,
-  cacheControl: true,
+  cacheControl: {
+    defaultMaxAge: 10,
+    stripFormattedExtensions: false
+  },
   engine: false
 })
 server.applyMiddleware({ app })
@@ -33,7 +25,7 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }))
 
-app.use('/', require('./routes/echo'))
+app.use('/', echo)
 
 interface Err extends Error {
   status: number
