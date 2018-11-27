@@ -1,10 +1,10 @@
-import * as express from 'express'
-import * as graphqlHTTP from 'express-graphql'
+import express, { Request, Response, NextFunction } from 'express'
+import graphqlHTTP from 'express-graphql'
 import { ApolloServer } from 'apollo-server-express'
-import * as bodyParser from 'body-parser'
-import echo from './routes/echo'
+import main from './routes/main'
 import schema from './schema/schema'
 import connectMongoose from './mongodb'
+import render from './render'
 
 const app = express()
 connectMongoose()
@@ -25,7 +25,8 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }))
 
-app.use('/', echo)
+app.use('/', main)
+app.use(render)
 
 interface Err extends Error {
   status: number
@@ -33,14 +34,14 @@ interface Err extends Error {
 }
 
 // catch 404 and forward to error handler
-app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   let err = new Error('Not Found') as Err
   err.status = 404
   next(err)
 })
 
 // error handler
-app.use((err: Err, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Err, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500)
   res.json({
     message: err.message,
