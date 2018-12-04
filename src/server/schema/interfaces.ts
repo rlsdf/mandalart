@@ -1,7 +1,7 @@
 export interface MandalResolveArgs {
   id: string,
-  title: string,
-  date: string,
+  goal: string,
+  mainSteps: object,
   authorId: string
 }
 

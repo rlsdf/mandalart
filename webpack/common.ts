@@ -1,6 +1,7 @@
 import path from 'path'
 import { Configuration } from 'webpack'
 import webpackBar from 'webpackbar'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const config: Configuration = {
   output: {
@@ -8,7 +9,7 @@ const config: Configuration = {
     publicPath: '/'
   },
   resolve: {
-    extensions: [".webpack.js", ".web.js", '.js', '.ts', '.tsx', '.css', '.scss'],
+    extensions: ['.webpack.js', '.web.js', '.js', '.ts', '.tsx', '.css', '.scss'],
     modules: [
       path.join(__dirname, '../node_modules'),
       path.join(__dirname, '../src')
@@ -29,7 +30,10 @@ const config: Configuration = {
     ]
   },
   plugins: [
-    new webpackBar()
+    new webpackBar(),
+    new MiniCssExtractPlugin({
+      filename: 'static/style.css'
+    })
   ]
 }
 

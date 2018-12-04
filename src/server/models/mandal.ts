@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const mandalSchema = new Schema({
-  title: String,
-  date: String,
+  goal: String,
+  mainSteps: Object,
   authorId: String
 })
 

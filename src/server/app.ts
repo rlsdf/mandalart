@@ -22,10 +22,13 @@ server.applyMiddleware({ app })
 
 app.use('/graphql', graphqlHTTP({
   schema,
-  graphiql: true
+  graphiql: true // process.env.NODE_ENV === 'production' ? false : true
 }))
 
+app.use('/static', express.static('/static'))
 app.use('/', main)
+
+// 서버사이드 렌더링
 app.use(render)
 
 interface Err extends Error {
@@ -35,7 +38,7 @@ interface Err extends Error {
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
-  let err = new Error('Not Found') as Err
+  const err = new Error('Not Found') as Err
   err.status = 404
   next(err)
 })

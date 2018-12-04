@@ -1,0 +1,16 @@
+.mainStep {
+  width: 900px;
+  height: 900px;
+}
+
+.subStep {
+  float: left;
+  width: 300px;
+  height: 300px;
+}
+
+.todo {
+  float: left;
+  width: 100px;
+  height: 100px;
+}

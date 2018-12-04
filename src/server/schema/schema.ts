@@ -1,4 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools'
+import GraphQLJSON from 'graphql-type-json'
 import { MandalResolveArgs, AuthorResolveArgs } from './interfaces'
 import Mandal from '../models/mandal'
 import Author from '../models/author'
@@ -16,7 +17,7 @@ const QueryType = `
 const MutationType = `
   type Mutation {
     addAuthor(name: String!): Author
-    addMandal(title: String!, date: String!, authorId: String): Mandal
+    addMandal(goal: String!, mainSteps: JSON!, authorId: String): Mandal
   }
 `
 
@@ -37,26 +38,27 @@ const resolvers = {
   },
   Mutation: {
     addAuthor (parent: any, args: AuthorResolveArgs) {
-      let author = new Author({
+      const author = new Author({
         name: args.name
       })
 
       return author.save()
     },
     addMandal (parent: any, args: MandalResolveArgs) {
-      let mandal = new Mandal({
-        title: args.title,
-        date: args.date,
+      const mandal = new Mandal({
+        goal: args.goal,
+        mainSteps: args.mainSteps,
         authorId: args.authorId
       })
 
       return mandal.save()
     }
-  }
+  },
+  JSON: GraphQLJSON
 }
 
 export default makeExecutableSchema({
-  typeDefs: [ QueryType, MutationType, MandalType, AuthorType ],
+  typeDefs: [QueryType, MutationType, MandalType, AuthorType],
   resolvers: {
     ...resolvers,
     ...MandalResolver,

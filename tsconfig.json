@@ -2,11 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es5",
+    "target": "es6",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "moduleResolution": "node",
     "strictNullChecks": true,
+    "noImplicitAny": true,
     "outDir": "dist"
   },
   "include": [

@@ -1,6 +1,6 @@
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
-process.env.APP_ENV = 'server';
+process.env.BABEL_ENV = 'production'
+process.env.NODE_ENV = 'production'
+process.env.APP_ENV = 'server'
 
 import path from 'path'
 import webpack, { Configuration } from 'webpack'

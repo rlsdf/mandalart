@@ -2,10 +2,11 @@ import { MandalResolveArgs } from './interfaces'
 import Author from '../models/author'
 
 export const typeDef = `
+  scalar JSON
   type Mandal {
     id: String,
-    title: String,
-    date: String,
+    goal: String,
+    mainSteps: JSON,
     author: Author
   }
 `
