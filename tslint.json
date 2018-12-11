@@ -6,6 +6,8 @@
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "align": [true, "parameters", "statements"],
     "variable-name": [true, "ban-keywords", "allow-leading-underscore"],
-    "prefer-array-literal": false
+    "prefer-array-literal": false,
+    "function-name": false,
+    "no-any": false
   }
 }
