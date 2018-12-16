@@ -93,6 +93,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux": "^3.6.0",
     "@types/redux-actions": "^2.3.1",
+    "@types/redux-saga": "^0.10.5",
     "@types/window-or-global": "^1.0.0",
     "apollo-server-express": "^2.2.3",
     "axios": "^0.18.0",
@@ -108,11 +109,9 @@
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-router-server": "^4.2.3",
-    "react-universal-component": "^3.0.3",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
-    "webpack-flush-chunks": "^2.0.3",
+    "redux-saga": "^0.16.2",
     "window-or-global": "^1.0.1"
   }
 }

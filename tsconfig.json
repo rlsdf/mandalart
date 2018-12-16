@@ -3,15 +3,18 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
+    "lib": [
+      "es6"
+    ],
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "moduleResolution": "node",
     "strictNullChecks": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "outDir": "dist"
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"
