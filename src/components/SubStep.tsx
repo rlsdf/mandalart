@@ -1,9 +1,13 @@
 import React from 'react'
 import Todo from './Todo'
 
+type ListType = {
+  todo: string
+}
+
 type Props = {
   mainIndex: number,
-  list: any[]
+  list: ListType[]
 }
 
 const SubStep = (props: Props) => {
@@ -12,7 +16,7 @@ const SubStep = (props: Props) => {
   return (
     <div className="subStep">
       {list.map((item, index) =>
-        <Todo key={`${mainIndex}-${index}`} {...item} id={`${mainIndex}-${index}`}/>)}
+        <Todo key={`${mainIndex}-${index}`} id={`${mainIndex}-${index}`} {...item} />)}
     </div>
   )
 }

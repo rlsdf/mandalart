@@ -1,14 +1,14 @@
 import React from 'react'
 import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
-import App from '../../shared/App'
+import Root from '../../shared/Root'
 
 const render = (location: String, store: any) => {
   const context = {}
   return (
     <StaticRouter location={location} context={context}>
       <Provider store={store}>
-        <App/>
+        <Root/>
       </Provider>
     </StaticRouter>
   )

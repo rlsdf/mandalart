@@ -26,18 +26,18 @@ const initialState: MandalState = {
 const processMandalData = (state: any) => {
   const data: any = state.mandals[0]
   const goal: string = data.goal
-  const mainList: any[] = new Array(9).fill({ todo: '' })
-  const mainSteps: any = data.mainSteps
+  const mainList: object[] = new Array(9).fill({ todo: '' })
+  const mainSteps: object = data.mainSteps
   const mainStepKeys: string[] = Object.keys(mainSteps) // ['leftTop', 'rightTop']
-  const mainStepList: any[] = mainStepKeys.reduce((mains: any[], mainKey: any) => {
-    const mainDirection: any = Direction[mainKey] // 0 -> 2
+  const mainStepList: object[] = mainStepKeys.reduce((mains: object[], mainKey: string) => {
+    const mainDirection: string = Direction[mainKey] // 0 -> 2
     const main: any = mainSteps[mainKey] // [{todo, subSteps}, empty, {todo, subSteps}]
     const mainTodo = main.todo
 
-    const subSteps: any = main.subSteps
+    const subSteps: object = main.subSteps
     const subStepKeys: string[] = Object.keys(subSteps)
-    const subStepList: any[] = subStepKeys.reduce((subs: any[], subKey: any) => {
-      const subDirection: any = Direction[subKey]
+    const subStepList: object[] = subStepKeys.reduce((subs: object[], subKey: string) => {
+      const subDirection: string = Direction[subKey]
 
       subs[subDirection] = subSteps[subKey]
 
@@ -57,7 +57,7 @@ const processMandalData = (state: any) => {
   return mainStepList
 }
 
-const successMandal = (state: any, action: any) => {
+const successMandal = (state: MandalState, action: any) => {
   const list = processMandalData(action.payload)
 
   /**

@@ -1,8 +1,12 @@
 import React from 'react'
 import SubStep from './SubStep'
 
+type ListType = {
+  todo: string
+}
+
 type Props = {
-  list: any[]
+  list: ListType[][]
 }
 
 const MainStep = (props: Props) => (

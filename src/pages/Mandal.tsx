@@ -1,13 +1,16 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as mandalActions from '../redux/actions'
 import { StoreState } from '../redux/reducer'
-import MainStep from '../client/components/MainStep'
-// import './style.css'
+import MainStep from '../components/MainStep'
+
+type ListType = {
+  todo: string
+}
 
 type Props = {
-  list: object[],
+  list: ListType[][],
   MandalActions: typeof mandalActions
 }
 type State = {}
@@ -39,10 +42,7 @@ class App extends Component<Props, State> {
 
   render() {
     return (
-      <Fragment>
-        <div>Hello, SSR</div>
-        <MainStep list={this.props.list} />
-      </Fragment>
+      <MainStep list={this.props.list} />
     )
   }
 }
