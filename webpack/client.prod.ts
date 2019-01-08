@@ -1,3 +1,6 @@
+process.env.BABEL_ENV = 'production'
+process.env.NODE_ENV = 'production'
+
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
 import merge from 'webpack-merge'
@@ -16,7 +19,10 @@ const config: Configuration = merge(common, {
     filename: 'app.client.js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.DefinePlugin({
+      'process.env.BABEL_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
   ]
 })
 

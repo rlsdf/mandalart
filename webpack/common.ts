@@ -9,7 +9,7 @@ const config: Configuration = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.js', '.ts', '.tsx', '.css', '.scss'],
+    extensions: ['.js', '.ts', '.tsx', '.css', '.scss'],
     modules: [
       path.join(__dirname, '../node_modules'),
       path.join(__dirname, '../src')

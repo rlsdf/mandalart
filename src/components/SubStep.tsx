@@ -7,16 +7,24 @@ type ListType = {
 
 type Props = {
   mainIndex: number,
-  list: ListType[]
+  list: ListType[],
+  onChangeTodo: Function
 }
 
 const SubStep = (props: Props) => {
-  const { mainIndex, list } = props
+  const { mainIndex, list, onChangeTodo } = props
 
   return (
     <div className="subStep">
-      {list.map((item, index) =>
-        <Todo key={`${mainIndex}-${index}`} id={`${mainIndex}-${index}`} {...item} />)}
+      {list.map((item, index) => {
+        const todoProps = {
+          ...item,
+          onChangeTodo,
+          id: `${mainIndex}-${index}`
+        }
+
+        return <Todo key={`${mainIndex}-${index}`} {...todoProps} />
+      })}
     </div>
   )
 }

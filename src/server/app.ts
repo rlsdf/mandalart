@@ -25,7 +25,7 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true // process.env.NODE_ENV === 'production' ? false : true
 }))
 
-app.use('/static', express.static('/static'))
+app.use('/static', express.static('./build'))
 app.use('/', main)
 
 // 서버사이드 렌더링

@@ -2,14 +2,18 @@ import React from 'react'
 
 type Props = {
   id: string,
-  todo: string
+  todo: string,
+  onChangeTodo: Function
 }
 
 const Todo = (props: Props) => {
-  const { id, todo } = props
+  const { id, todo, onChangeTodo } = props
 
   return (
-    <div className="todo">{id}: {todo}</div>
+    <div className="todo">
+      {id}
+      <input type="text" defaultValue={todo || ''} onChange={onChangeTodo(id)}/>
+    </div>
   )
 }
 

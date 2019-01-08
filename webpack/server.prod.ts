@@ -1,6 +1,5 @@
 process.env.BABEL_ENV = 'production'
 process.env.NODE_ENV = 'production'
-process.env.APP_ENV = 'server'
 
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
@@ -23,8 +22,7 @@ const config: Configuration = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.BABEL_ENV': JSON.stringify('production'),
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.APP_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
   ]
 })

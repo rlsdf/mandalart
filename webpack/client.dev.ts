@@ -1,3 +1,6 @@
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
+
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
 import merge from 'webpack-merge'

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as mandalActions from '../redux/actions'
+import { requestMandal, updateRequestMandal } from '../redux/actions'
 import { StoreState } from '../redux/reducer'
 import MainStep from '../components/MainStep'
 
@@ -11,7 +10,8 @@ type ListType = {
 
 type Props = {
   list: ListType[][],
-  MandalActions: typeof mandalActions
+  requestMandal: Function,
+  updateRequestMandal: Function
 }
 type State = {}
 
@@ -21,7 +21,6 @@ class App extends Component<Props, State> {
   }
 
   UNSAFE_componentWillMount() {
-    const { MandalActions } = this.props
     const endpoint = 'http://localhost:9999/graphql'
     const query = `{
       mandals {
@@ -30,7 +29,7 @@ class App extends Component<Props, State> {
       }
     }`
 
-    MandalActions.requestMandal({
+    this.props.requestMandal({
       params: {
         method: 'post',
         url: endpoint,
@@ -40,9 +39,17 @@ class App extends Component<Props, State> {
     })
   }
 
+  changeTodo = (id: string) => (e) => {
+    const params = {
+      id,
+      todo: e.target.value
+    }
+    this.props.updateRequestMandal(params)
+  }
+
   render() {
     return (
-      <MainStep list={this.props.list} />
+      <MainStep list={this.props.list} onChangeTodo={this.changeTodo} />
     )
   }
 }
@@ -53,7 +60,5 @@ const mapStateToProps = ({ mandal }: StoreState) => ({
 
 export default connect(
   mapStateToProps,
-  dispatch => ({
-    MandalActions: bindActionCreators(mandalActions, dispatch)
-  })
+  { requestMandal, updateRequestMandal }
 )(App) as any

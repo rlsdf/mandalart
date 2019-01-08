@@ -6,12 +6,14 @@ type ListType = {
 }
 
 type Props = {
-  list: ListType[][]
+  list: ListType[][],
+  onChangeTodo: Function
 }
 
 const MainStep = (props: Props) => (
   <div className="mainStep">
-    {props.list.map((item, index) => <SubStep key={index} list={item} mainIndex={index} />)}
+    {props.list.map((item, index) =>
+      <SubStep key={index} list={item} mainIndex={index} onChangeTodo={props.onChangeTodo} />)}
   </div>
 )
 
