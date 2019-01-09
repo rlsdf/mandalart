@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 import {
   MANDAL_SUCCESS,
-  UPDATE_MANDAL_REQUEST
+  UPDATE_MANDAL
 } from '../actionTypes'
 
 enum Direction {
@@ -84,25 +84,6 @@ const processMandalData = (state: any) => {
   return mainStepList
 }
 
-const makeEmptyTodo = (mandal, id) => {
-  if (!mandal.mainSteps[id]) {
-    mandal.mainSteps[id] = {
-      todo: '',
-      subSteps: {}
-    }
-  }
-}
-
-const modifyMainSteps = (mandal, id, todo) => {
-  makeEmptyTodo(mandal, id)
-  mandal.mainSteps[id].todo = todo
-}
-
-const modifySubSteps = (mandal, mainId, subId, todo) => {
-  makeEmptyTodo(mandal, mainId)
-  mandal.mainSteps[mainId].subSteps[subId] = todo
-}
-
 const successMandal = (state: MandalState, action: any) => {
   const { payload } = action
 
@@ -113,36 +94,28 @@ const successMandal = (state: MandalState, action: any) => {
   }
 }
 
-const updateRequestMandal = (state: MandalState, action: any) => {
-  const newOrigin: any = { ...state.origin }
-  const mandal = newOrigin.mandals[0]
+const updateMandal = (state: MandalState, action: any) => {
   const { id, todo } = action.payload
   const splitId = id.split('-')
-  const mainId = Direction[splitId[0]]
-  const subId = Direction[splitId[1]]
+  const mainId = splitId[0]
+  const subId = splitId[1]
+  const newList = [...state.list]
 
-  if (mainId === 'center' && subId === 'center') {
-    mandal.goal = todo
-  } else if (mainId === 'center') {
-    modifyMainSteps(mandal, subId, todo)
-  } else if (subId === 'center') {
-    modifyMainSteps(mandal, mainId, todo)
-  } else {
-    modifySubSteps(mandal, mainId, subId, todo)
+  newList[mainId][subId] = { todo }
+
+  if (mainId === '4' || subId === '4') {
+    newList[subId][mainId] = { todo }
   }
-
-  console.log(newOrigin.mandals[0])
 
   return {
     ...state,
-    list: processMandalData(newOrigin),
-    origin: newOrigin
+    list: newList
   }
 }
 
 const mandal = handleActions<MandalState>({
   [MANDAL_SUCCESS]: successMandal,
-  [UPDATE_MANDAL_REQUEST]: updateRequestMandal
+  [UPDATE_MANDAL]: updateMandal
 }, initialState)
 
 export default mandal

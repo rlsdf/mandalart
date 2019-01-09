@@ -12,7 +12,7 @@ const Todo = (props: Props) => {
   return (
     <div className="todo">
       {id}
-      <input type="text" defaultValue={todo || ''} onChange={onChangeTodo(id)}/>
+      <input type="text" value={todo || ''} onChange={onChangeTodo(id)}/>
     </div>
   )
 }

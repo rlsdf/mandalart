@@ -34,6 +34,6 @@ if (process.env.NODE_ENV === 'development') {
   configureDevelopment(app)
 }
 
-app.listen(9999, () => {
-  console.log('Example app listening on port 9999!')
+app.listen(9099, () => {
+  console.log('Example app listening on port 9099!')
 })

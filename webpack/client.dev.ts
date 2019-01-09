@@ -18,6 +18,7 @@ const config: Configuration = merge(common, {
   ],
   devtool: 'inline-source-map',
   output: {
+    publicPath: '/build/',
     filename: 'app.client.js'
   },
   plugins: [

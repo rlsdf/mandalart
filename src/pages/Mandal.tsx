@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { requestMandal, updateRequestMandal } from '../redux/actions'
+import { requestMandal, updateMandal } from '../redux/actions'
 import { StoreState } from '../redux/reducer'
 import MainStep from '../components/MainStep'
 
@@ -11,7 +11,7 @@ type ListType = {
 type Props = {
   list: ListType[][],
   requestMandal: Function,
-  updateRequestMandal: Function
+  updateMandal: Function
 }
 type State = {}
 
@@ -21,7 +21,7 @@ class App extends Component<Props, State> {
   }
 
   UNSAFE_componentWillMount() {
-    const endpoint = 'http://localhost:9999/graphql'
+    const endpoint = 'http://localhost:9099/graphql'
     const query = `{
       mandals {
         goal
@@ -44,7 +44,7 @@ class App extends Component<Props, State> {
       id,
       todo: e.target.value
     }
-    this.props.updateRequestMandal(params)
+    this.props.updateMandal(params)
   }
 
   render() {
@@ -60,5 +60,5 @@ const mapStateToProps = ({ mandal }: StoreState) => ({
 
 export default connect(
   mapStateToProps,
-  { requestMandal, updateRequestMandal }
+  { requestMandal, updateMandal }
 )(App) as any
