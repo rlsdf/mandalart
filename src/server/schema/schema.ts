@@ -18,6 +18,7 @@ const MutationType = `
   type Mutation {
     addAuthor(name: String!): Author
     addMandal(goal: String!, mainSteps: JSON!, authorId: String): Mandal
+    updateMandal(id: String!, goal: String!, mainSteps: JSON!, authorId: String): Mandal
   }
 `
 
@@ -52,6 +53,13 @@ const resolvers = {
       })
 
       return mandal.save()
+    },
+    async updateMandal(parent: any, args: MandalResolveArgs) {
+      return await Mandal.findByIdAndUpdate(
+        args.id,
+        { $set: { goal: args.goal, mainSteps: args.mainSteps } },
+        { new: true }
+      )
     }
   },
   JSON: GraphQLJSON

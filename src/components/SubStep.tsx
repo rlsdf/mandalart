@@ -1,13 +1,10 @@
 import React from 'react'
+import { TodoType } from '../types'
 import Todo from './Todo'
-
-type ListType = {
-  todo: string
-}
 
 type Props = {
   mainIndex: number,
-  list: ListType[],
+  list: TodoType[],
   onChangeTodo: Function
 }
 

@@ -1,12 +1,9 @@
 import React from 'react'
+import { TodoType } from '../types'
 import SubStep from './SubStep'
 
-type ListType = {
-  todo: string
-}
-
 type Props = {
-  list: ListType[][],
+  list: TodoType[][],
   onChangeTodo: Function
 }
 

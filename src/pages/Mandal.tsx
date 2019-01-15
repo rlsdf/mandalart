@@ -1,21 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { requestMandal, updateMandal } from '../redux/actions'
+import { TodoType } from '../types'
+import processMandalToObject from '../helper/processMandalToObject'
+import {
+  requestMandal,
+  updateMandal,
+  updateRequestMandal
+} from '../redux/actions'
 import { StoreState } from '../redux/reducer'
 import MainStep from '../components/MainStep'
 
-type ListType = {
-  todo: string
-}
-
 type Props = {
-  list: ListType[][],
+  list: TodoType[][],
   requestMandal: Function,
-  updateMandal: Function
+  updateMandal: Function,
+  updateRequestMandal: Function
 }
-type State = {}
 
-class App extends Component<Props, State> {
+class App extends Component<Props, {}> {
   constructor(props: Props) {
     super(props)
   }
@@ -47,9 +49,40 @@ class App extends Component<Props, State> {
     this.props.updateMandal(params)
   }
 
+  updateRequestMandal = (e: React.MouseEvent<HTMLElement>) => {
+    const { list, updateRequestMandal } = this.props
+    const newMandal = processMandalToObject(list)
+    const endpoint = 'http://localhost:9099/graphql'
+    const query = `
+      mutation {
+        updateMandal(
+          id: "5c06a204daba1419f4b01f82",
+          goal: "${newMandal.goal}",
+          mainSteps: ${newMandal.mainSteps}
+        ) {
+          goal
+          mainSteps
+        }
+      }
+    `
+
+    updateRequestMandal({
+      params: {
+        method: 'post',
+        url: endpoint,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({ query })
+      }
+    })
+  }
+
   render() {
     return (
-      <MainStep list={this.props.list} onChangeTodo={this.changeTodo} />
+      <Fragment>
+        <button onClick={this.updateRequestMandal}>수정</button>
+        <button>삭제</button>
+        <MainStep list={this.props.list} onChangeTodo={this.changeTodo} />
+      </Fragment>
     )
   }
 }
@@ -60,5 +93,9 @@ const mapStateToProps = ({ mandal }: StoreState) => ({
 
 export default connect(
   mapStateToProps,
-  { requestMandal, updateMandal }
+  {
+    requestMandal,
+    updateMandal,
+    updateRequestMandal
+  }
 )(App) as any
